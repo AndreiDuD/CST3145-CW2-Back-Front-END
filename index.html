@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vee-validate@3.3.8/dist/vee-validate.min.js"></script>
+    <!--Bootsrap Styling-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Div tag displaying image, button and information for Maths lesson -->
+    <div id="app">
+        <div class="navbar fixed-top" style="background-color: rgb(255, 255, 255);">
+            <h1>After School Club</h1>
+            <button v-on:click="showCheckout" class="btn btn-success" id="checkoutButton">
+                {{ this.cart.length }}
+                <span> Checkout </span>
+            </button>
+        </div>
+        <main>
+            <!--When showProducts is TRUE Display products page-->
+            <div v-if="showProduct">
+                <div id="productStyle" v-for="product in products">
+                    <div>
+                        <img v-bind:src="product.image">
+                    </div>
+                    <div>
+                        <h2 v-text="product.title"></h2>
+                        <p v-text="product.location"></p>
+                        <p>Price: £{{product.price}} </p>
+                        <p>Available stock: {{product.availableInventory}}</p>
+                        
+                        <button class="btn btn-primary" v-on:click="addToCart(product)" v-if="canAddToCart(product)">
+                            Add to cart</button>
+                            <button disabled="disabled" v-else>Add to cart</button>
+                            <span v-if="product.availableInventory === cartItemCount(product.id)">
+                                All out!</span>
+                                <span v-else-if="product.availableInventory - cartItemCount(product.id) < 5">
+                                    Only {{product.availableInventory - cartItemCount(product.id)}} left!
+                                </span>
+                                <span v-else>Buy now!</span>
+                                <p>
+                                    <span v-for='n in product.rating'>★</span>
+                                    <span v-for='n in 5-product.rating'>☆</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Checkout Page-->
+                    <!--When showProducts is FALSE Display checkout page-->
+                    <div v-else>
+                        <div id="Products">
+                            <form id="myForm" @submit="checkForm" method="post">
+                                <br><br><br>
+                        <h2>Checkout</h2>
+
+                        <div class="form-row">
+                            <div class="col-md-4">
+                                <label>Name:</label>
+                                <input type="text" id="name" v-model="form.name" name="name" class="form-control" placeholder="First name" >
+                            </div>
+
+                            <div class="col-md-1">
+                                <label>Phone:</label>
+                                <input type="tel" id="phone" v-model="form.phone" name="name" class="form-control" >
+                            </div>
+                            <br><button type="submit" class="btn btn-primary">Place Order</button><br><br>
+                        </div>
+                </div>
+                <p v-if="errors.length">
+                    <b>Please correct the following error(s):</b>
+                <ul>
+                    <li v-for="error in errors">{{ error }}</li>
+                </ul>
+                </p>
+
+                <h2>Order Information</h2>
+                <p>Name: {{form.name}}</p>
+                <p>Phone: {{form.phone}}</p>
+                <div id="productStyle" v-for="item in cart">
+                    <div>
+                        <img v-bind:src="item.image">
+                    </div>
+                    <div>
+                        <h2 v-text="item.title"></h2>
+                        <p v-text="item.location"></p>
+                        <p>Price: £{{item.price}} </p>
+                        <button class="btn btn-danger" v-on:click="removeFromCheckout(item)" data-name="item.id">Remove from cart</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+</body>
+<!-- Javascript file location code-->
+<script type="text/javascript" src="./products.js"></script>
+<script type="text/javascript" src="./lessons.js"></script>
+
+</html>
