@@ -71,7 +71,7 @@ app.param("collectionName", (req, res, next,
             })
     })
 
-    const port = process.env.PORT || 3000
+    const port = process.env.PORT || 3000;
     app.listen(port, ()=> {
         console.log("Express server is running at localhost:3000.")
     })
