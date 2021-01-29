@@ -13,10 +13,10 @@ mongoClient.connect("mongodb+srv://AndreiUser:M0ng0Us3r@cluster0.jdmnf.mongodb.n
 
 app.use(express.json());
 
-//  app.use(function(req, res) {
-//      res.header("Access-Control-Allow-Origin", "*");
-//      res.header("Access-Control-Allow-Headers", "*");
-//  })
+app.use(function(req, res) {
+     res.header("Access-Control-Allow-Origin", "*");
+     res.header("Access-Control-Allow-Headers", "*");
+    })
 // Get collection name from database
 app.param("collectionName", (req, res, next,
     collectionName) => {
