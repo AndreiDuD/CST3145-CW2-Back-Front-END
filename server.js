@@ -18,6 +18,10 @@ app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Headers", "*");
     next();
 })
+app.use(function(req, res, next) {
+    console.log("Address is ", req.ip);
+    next();
+})
 // Get collection name from database
 app.param("collectionName", (req, res, next,
     collectionName) => {
