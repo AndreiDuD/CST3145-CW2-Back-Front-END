@@ -19,7 +19,7 @@ app.use(function(req, res, next) {
     next();
 })
 app.use(function(req, res, next) {
-    console.log("Address is ", req.ip);
+    console.log("Address is ", req.send("Logging Event"));
     next();
 })
 // Get collection name from database
