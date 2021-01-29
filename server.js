@@ -15,7 +15,7 @@ app.use(express.json());
 
 app.use(function(req, res) {
     res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "*");
+    //res.header("Access-Control-Allow-Headers", "*");
 })
 // Get collection name from database
 app.param("collectionName", (req, res, next,
