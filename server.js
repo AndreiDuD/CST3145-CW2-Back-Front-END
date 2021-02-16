@@ -13,9 +13,10 @@ mongoClient.connect("mongodb+srv://AndreiUser:M0ng0Us3r@cluster0.jdmnf.mongodb.n
 
 app.use(express.json());
 
-app.use(function(req, res) {
+app.use(function(req, res, next) {
      res.header("Access-Control-Allow-Origin", "*");
      res.header("Access-Control-Allow-Headers", "*");
+     return next();
     })
 // Get collection name from database
 app.param("collectionName", (req, res, next,
@@ -75,24 +76,3 @@ app.param("collectionName", (req, res, next,
     app.listen(3000, ()=> {
         console.log("Express server is running at localhost:3000.")
     })
-
-
-    /* TO DO LIST 
-• MongoDB (4%):
-– Have a MongoDB collection for order information (2%) - minimal fields: name, phone number, lesson ID, and number of space.
-
-• Node (2%)
-
-• Middleware (4%)
-– Create a ‘logger’ middleware that output all requests to the server console (2%)
-– Create a static file middleware that returns lesson images or an error message if the image file does not exist. (2%)
-
-• REST API (10%):
-– A POST route that saves a new order to the ‘order’ collection (2%);
-– A P UT route that updates the number of available spaces in the ‘lesson’ collection after an order is submitted (2%).
-– At least one Postman request is created for each routing (2%).
-
-• Fetch (5%)
-– A fetch that retrieves all the lessons with GET (1%).
-– A fetch that saves a new order with POST after it is submitted (2%).
-– A fetch that updates the available lesson space with PUT after an order is submitted (2%). */
